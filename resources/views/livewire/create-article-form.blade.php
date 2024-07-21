@@ -1,15 +1,21 @@
 <div>
     {{-- If your happiness depends on money, you will never be happy with yourself. --}}
 
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                @if (session()->has('prodottoCaricato'))
+                <div class="alert alert-success text-center">
+                    {{ session('prodottoCaricato') }}
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
     <div class="container my-5">
         <div class="row justify-content-center">
-            @if (session()->has('prodottoCaricato'))
-            <div class="alert alert-success">
-                {{ session('prodottoCaricato') }}
-            </div>
-            @endif
             <div class="col-8 rounded shadow border p-4">
-
                 <form wire:submit.prevent="store" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
@@ -61,16 +67,16 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="" for="specificSizeSelect">
+                        <label for="category">
                             Seleziona la categoria:
                         </label>
-                        <select class="form-select" id="specificSizeSelect" wire:model.blur="categorySelect">
+                        <select class="form-select" id="category" wire:model.blur="category">
                             @foreach ($categories as $category)
-                            <option class="" value="{{ $category->id }}">{{$category->name}}
+                            <option value="{{ $category->id }}">{{$category->name}}
                             </option>
                             @endforeach
                         </select>
-                        @error('categorySelect')
+                        @error('category')
                         <div class="alert alert-danger fst-italic small text-danger">
                             {{ $message }}
                         </div>

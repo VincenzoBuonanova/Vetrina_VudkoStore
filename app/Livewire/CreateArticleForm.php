@@ -34,7 +34,8 @@ class CreateArticleForm extends Component
     public $body;
 
     #[Validate("required", message: "Scegli almeno una categoria")]
-    public $categorySelect = [];
+    public $category;
+    public $article;
 
     public function store()
     {
@@ -46,7 +47,7 @@ class CreateArticleForm extends Component
             'modello' => $this->modello,
             'price' => $this->price,
             'body' => $this->body,
-            'category_id' => $this->categorySelect,
+            'category' => $this->category,
             'user_id' => Auth::id(),
         ]);
         // Pulizia del form
@@ -69,6 +70,6 @@ class CreateArticleForm extends Component
 
     protected function cleanForm()
     {
-        $this->reset(['brand', 'modello', 'price', 'body', 'categorySelect']);
+        $this->reset(['brand', 'modello', 'price', 'body', 'category']);
     }
 }

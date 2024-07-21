@@ -180,11 +180,6 @@ a {
     height: 120px;
 }
 
-.navbar-toggler {
-    line-height: 1;
-    border: 1px solid var(--or);
-}
-
 #carouselRevisor {
     width: 300px;
 }
