@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Article;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -47,7 +46,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function articles() : HasMany
+    public function articles()
     {
         return $this->hasMany(Article::class);
     }
