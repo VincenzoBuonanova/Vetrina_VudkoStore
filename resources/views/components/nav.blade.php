@@ -8,17 +8,17 @@
 
         <div class="row align-items-center justify-content-between w-100">
             <div class="collapse navbar-collapse my-3 my-lg-0 w-100" id="navbarSupportedContent">
-                {{--! inizio lato sinistro navbar LORO e CATEGORIE --}}
+                {{--! inizio lato sinistro navbar LOGO e CATEGORIE --}}
                 <div class="col-12 col-lg-4 d-lg-flex align-items-center me-auto">
                     {{--! apertura logo che riporta alla home --}}
                     <a class="navbar-brand ps-2" href="{{ route('home') }}">
                         <img src="/storage/img/logo.png" alt="VS logo_60" height="60px">
                     </a>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link fw-semibold text-gr" href="{{ route('home') }}">Home</a>
-                    </li> --}}
-                    {{--! inizio sezione categorie --}}
+                    {{--! inizio sezione catalogo e categorie --}}
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-gr" href="{{ route('articleIndex') }}">Catalogo</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-warning fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Categorie
@@ -27,7 +27,7 @@
                                 @foreach ($categories as $category)
                                 <li>
                                     <a class="dropdown-item"
-                                    href="#">{{$category->name}}</a>
+                                    href="{{ route('byCategory', ['category' => $category])}}">{{$category->name}}</a>
                                 </li>
                                 @if (!$loop->last)
                                 <hr class="dropdown-divider">
