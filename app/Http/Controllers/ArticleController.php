@@ -22,11 +22,40 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
+        // dd($article, $article->category);
+
         return view('articoli.show', compact('article'));
     }
+
 
     public function byCategory(Category $category)
     {
         return view('articoli.byCategory', [ 'articles' => $category->articles()->paginate(6), 'category' => $category]);
     }
+
+    // App\Http\Controllers\ArticleController.php
+    public function store(Request $request)
+    {
+        // Validazione dei dati
+        $validatedData = $request->validate([
+            'brand' => 'required|string|max:255',
+            'modello' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'body' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        // Creazione dell'articolo
+        $article = new Article();
+        $article->brand = $validatedData['brand'];
+        $article->modello = $validatedData['modello'];
+        $article->price = $validatedData['price'];
+        $article->body = $validatedData['body'];
+        $article->category_id = $validatedData['category_id'];
+        $article->user_id = auth()->id(); // Assumendo che l'utente sia autenticato
+        $article->save();
+
+        return redirect()->route('articles.index')->with('prodottoCaricato', 'Articolo creato con successo');
+    }
+
 }

@@ -72,8 +72,7 @@
                         </label>
                         <select class="form-select" id="category" wire:model.blur="category">
                             @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$category->name}}
-                            </option>
+                            <option value="{{ $category->id }}">{{$category->name}}</option>
                             @endforeach
                         </select>
                         @error('category')

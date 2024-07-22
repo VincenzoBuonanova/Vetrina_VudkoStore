@@ -14,6 +14,19 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        $categories = [
+            "Smartphone e Cellulari",
+            "Tecnologia da Indossare",
+            "Accessori per Smartphone",
+            "PC Desktop e Monitor",
+            "PC Portatili e Notebook",
+            "Ebook e Tablet"
+        ];
+
+        foreach ($categories as $category) {
+            Category::create(['name' => $category]);
+        }
     }
 
     public function down(): void

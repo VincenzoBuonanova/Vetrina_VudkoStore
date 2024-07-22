@@ -47,7 +47,7 @@ class CreateArticleForm extends Component
             'modello' => $this->modello,
             'price' => $this->price,
             'body' => $this->body,
-            'category' => $this->category,
+            'category_id' => $this->category,
             'user_id' => Auth::id(),
         ]);
         // Pulizia del form

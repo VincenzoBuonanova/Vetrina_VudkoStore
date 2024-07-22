@@ -25,7 +25,7 @@
                 </div>
                 <div class="row justify-content-center ">
                     <div class="col-12 col-md-4 text-center">
-                        <a href="{{ route('articleCreate') }}">
+                        <a href="{{ route('createArticle') }}">
                             <button class="btn btn-dark text-or">{{ __('ui.firstarticle') }}</button>
                         </a>
                     </div>
