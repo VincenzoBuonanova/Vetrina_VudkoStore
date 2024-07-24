@@ -39,9 +39,7 @@ class CreateArticleForm extends Component
 
     public function store()
     {
-        // Validazione dei dati del form
         $this->validate();
-        // Creazione del nuovo articolo
         $this->article = Article::create([
             'brand' => $this->brand,
             'modello' => $this->modello,
@@ -50,9 +48,7 @@ class CreateArticleForm extends Component
             'category_id' => $this->category,
             'user_id' => Auth::id(),
         ]);
-        // Pulizia del form
         $this->cleanForm();
-        // Messaggio di successo
         Session::flash('prodottoCaricato', 'Prodotto caricato con successo, in attesa di approvazione');
     }
 
@@ -61,12 +57,6 @@ class CreateArticleForm extends Component
         $categories = Category::all();
         return view('livewire.create-article-form', compact('categories'));
     }
-
-
-
-
-
-
 
     protected function cleanForm()
     {

@@ -6,9 +6,11 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Article extends Model
 {
+    use Searchable;
     use HasFactory;
 
     protected $fillable = ['brand', 'modello', 'price', 'body', 'user_id', 'category_id', 'img'];
@@ -41,6 +43,19 @@ class Article extends Model
 
     public static function toBeRevisitedCount()
     {
-        return Article::where('is_accepted', false)->count();
+        return Article::where('is_accepted', null)->count();
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'brand' => $this->brand,
+            'modello' => $this->modello,
+            'price' => $this->price,
+            'body' => $this->body,
+            'user' => $this->user,
+            'category' => $this->category,
+        ];
     }
 }

@@ -41,23 +41,17 @@
 
                 {{--! inizio centro navbar CERCA --}}
                 <div class="col-12 col-lg-4 d-lg-flex mx-0 mx-lg-auto align-items-center">
-                    {{-- <div class="d-flex mx-0 mx-md-auto">
-                        <form role="search" action="{{ route('searchProduct') }}" method="GET">
+                    <div class="d-flex mx-0 mx-md-auto">
+                        <form role="search" action="{{ route('articleSearch') }}" method="GET">
                             <div class="input-group">
                                 <input id="search-input" type="search" class="form-control" name="query"
-                                placeholder="{{ __('ui.search') }}" />
+                                placeholder="Cerca un prodotto" />
                                 <button id="search-button" type="submit" class="btn btn-or">
                                     <i class="fas fa-search fa-xl"></i>
                                 </button>
                             </div>
                         </form>
-                    </div> --}}
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Ricerca un prodotto" aria-label="Search">
-                            <button class="btn btn-outline-warning" type="submit">Cerca</button>
-                        </form>
-                    </ul>
+                    </div>
                 </div>
                 {{--! fine centro navbar --}}
 
@@ -104,25 +98,18 @@
 
                         {{--! inizio sezione revisore --}}
                         @if (Auth::user()->is_revisor == 1)
-                        <div class="dropdown ms-3">
-                            <a data-bs-toggle="dropdown" class="text-warning dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-                                @if (\App\Models\Product::toBeRevisedCount() > 0)
-                                <i class="fas fa-bell fa-xl"></i>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-gr">
+                                @if (\App\Models\Article::toBeRevisitedCount() > 0)
+                                <i class="fas fa-bell fa-xl text-warning"></i>
                                 <span class="badge rounded-pill badge-notification bg-or">
-                                    {{ \App\Models\Product::toBeRevisedCount() }}
+                                    {{ \App\Models\Article::toBeRevisitedCount() }}
                                 </span>
                                 @else
                                 <i class="fas fa-bell fa-xl text-gr"></i>
                                 @endif
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end bg-gr" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <a class="dropdown-item text-bl" href="{{ route('revisorIndex') }}">
-                                        {{ __('ui.productRevision') }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        </li>
                         @endif
                         {{--! fine sezione revisore --}}
 

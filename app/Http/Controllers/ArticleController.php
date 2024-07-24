@@ -30,12 +30,10 @@ class ArticleController extends Controller
     {
         $articles = $category->articles()->where('is_accepted', true);
         return view('articoli.byCategory', compact('articles', 'category'));
-        // return view('articoli.byCategory', [ 'articles' => $category->articles()->paginate(6), 'category' => $category]);
     }
 
     public function store(Request $request)
     {
-        // Validazione dei dati
         $validatedData = $request->validate([
             'brand' => 'required|string|max:255',
             'modello' => 'required|string|max:255',
@@ -44,14 +42,13 @@ class ArticleController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        // Creazione dell'articolo
         $article = new Article();
         $article->brand = $validatedData['brand'];
         $article->modello = $validatedData['modello'];
         $article->price = $validatedData['price'];
         $article->body = $validatedData['body'];
         $article->category_id = $validatedData['category_id'];
-        $article->user_id = auth()->id(); // Assumendo che l'utente sia autenticato
+        $article->user_id = auth()->id();
         $article->save();
 
         return redirect()->route('articles.index')->with('prodottoCaricato', 'Articolo creato con successo');

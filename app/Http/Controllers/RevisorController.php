@@ -14,8 +14,8 @@ class RevisorController extends Controller
 {
     public function index()
     {
-        $articles_to_check = Article::where('is_accepted', null)->first();
-        return view('revisor.revisorIndex', compact('articles_to_check'));
+        $article_to_check = Article::where('is_accepted', null)->first();
+        return view('revisor.revisorIndex', compact('article_to_check'));
     }
 
     public function accept(Article $article)

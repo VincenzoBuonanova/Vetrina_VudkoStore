@@ -9,8 +9,10 @@ Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/article/index', [ArticleController::class, 'index'])->name('articleIndex');
 Route::get('/article/show/{article}', [ArticleController::class, 'show'])->name('articleShow');
 Route::get('/category/{category}', [ArticleController::class, 'byCategory'])->name('byCategory');
+Route::get('/search/article', [PublicController::class, 'searchArticle'])->name('articleSearch');
 
 
+//! solo per revisori
 Route::middleware(['isRevisor'])->group(function () {
     Route::get('revisor/index', [RevisorController::class, 'index'])->name('revisorIndex');
     Route::patch('/accept/{article}', [RevisorController::class, 'accept'])->name('accept');
@@ -18,6 +20,7 @@ Route::middleware(['isRevisor'])->group(function () {
 });
 
 
+//! solo per loggati
 Route::middleware(['auth'])->group(function () {
     Route::get('articolo/crea', [ArticleController::class, 'create'])->name('createArticle');
     Route::get('/revisor/request', [RevisorController::class, 'becomeRevisor'])->name('becomeRevisor');

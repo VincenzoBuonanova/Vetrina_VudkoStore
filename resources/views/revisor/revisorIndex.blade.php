@@ -61,7 +61,7 @@
                     <div id="carouselRevisor" class="carousel slide carousel-fade mx-auto">
                         {{-- ? inizio sezione con le MINIATURE --}}
                         <div class="carousel-indicators">
-                            @if ($article_to_check->images->count())
+                            {{-- @if ($article_to_check->images->count())
                                 @foreach ($article_to_check->images as $key => $image)
                                     <img src="{{ Storage::url($image->path) }}"
                                         alt="Immagine {{ $key + 1 }} del prodotto {{ $article_to_check->title }}"
@@ -69,7 +69,7 @@
                                         @if ($key == 0) class="active" aria-current="true" @endif
                                         aria-label="Slide {{ $key + 1 }}">
                                 @endforeach
-                            @else
+                            @else --}}
                                 @for ($i = 0; $i < 3; $i++)
                                     <img src="https://picsum.photos/{{ 1000 + $i }}"
                                         alt="Immagine segnaposto del prodotto {{ $article_to_check->title }}"
@@ -77,13 +77,13 @@
                                         @if ($i == 0) class="active" aria-current="true" @endif
                                         aria-label="Slide {{ $i + 1 }}">
                                 @endfor
-                            @endif
+                            {{-- @endif --}}
                         </div>
                         {{-- ? fine sezione con le MINIATURE --}}
 
                         {{-- ? inizio sezione con le immagini --}}
                         <div class="carousel-inner rounded ">
-                            @if ($article_to_check->images->count())
+                            {{-- @if ($article_to_check->images->count())
                                 @foreach ($article_to_check->images as $key => $image)
                                     <div class="carousel-item @if ($key == 0) active @endif"
                                         height="300px" width="300px">
@@ -91,7 +91,7 @@
                                             alt="Immagine {{ $key + 1 }} del prodotto {{ $article_to_check->title }}">
                                     </div>
                                 @endforeach
-                            @else
+                            @else --}}
                                 @for ($i = 0; $i < 3; $i++)
                                     <div
                                         class="carousel-item @if ($i == 0) active @endif d-flex justify-content-center">
@@ -100,7 +100,7 @@
                                             height="300" width="300">
                                     </div>
                                 @endfor
-                            @endif
+                            {{-- @endif --}}
                         </div>
                         {{-- ? fine sezione con le immagini --}}
 
@@ -128,8 +128,9 @@
                     <p class="card-text fst-italic">Categoria: <a
                             href="{{ route('byCategory', $article_to_check->category) }}">{{$article_to_check->category->name}}</a>
                     </p>
-                    <p class="card-text fst-italic">{{ __('ui.createdBy') }}: <a
-                            href="{{ route('byUser', $article_to_check->user) }}">{{ $article_to_check->user->name }}</a>
+                    <p class="card-text fst-italic">{{ __('ui.createdBy') }}:
+                        <a href="#">{{ $article_to_check->user->name }}</a>
+                        {{-- <a href="{{ route('byUser', $article_to_check->user) }}">{{ $article_to_check->user->name }}</a> --}}
                     </p>
 
                     <div class="d-flex justify-content-around w-50 pt-3">

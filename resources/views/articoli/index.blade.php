@@ -2,7 +2,7 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center">{{ __('ui.allarticles') }}</h1>
+                <h1 class="text-center">Tutti i prodotti</h1>
             </div>
         </div>
     </div>
@@ -21,12 +21,12 @@
             @endforeach
             @if (count($articles) == 0)
                 <div class="col-12 col-md-5 m-4">
-                    <p class="alert alert-warning text-center">{{ __('ui.noProdForSale') }}</p>
+                    <p class="alert alert-warning text-center">Non ci sono prodotti in vendita.</p>
                 </div>
                 <div class="row justify-content-center ">
                     <div class="col-12 col-md-4 text-center">
                         <a href="{{ route('createArticle') }}">
-                            <button class="btn btn-dark text-or">{{ __('ui.firstarticle') }}</button>
+                            <button class="btn btn-dark text-or">Sii il primo a creare un annuncio</button>
                         </a>
                     </div>
                 </div>
