@@ -16,24 +16,23 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::orderBy('created_at', 'desc')->paginate(6);
+        $articles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->paginate(6);
         return view('articoli.index', compact('articles'));
     }
 
     public function show(Article $article)
     {
-        // dd($article, $article->category);
-
         return view('articoli.show', compact('article'));
     }
 
 
     public function byCategory(Category $category)
     {
-        return view('articoli.byCategory', [ 'articles' => $category->articles()->paginate(6), 'category' => $category]);
+        $articles = $category->articles()->where('is_accepted', true);
+        return view('articoli.byCategory', compact('articles', 'category'));
+        // return view('articoli.byCategory', [ 'articles' => $category->articles()->paginate(6), 'category' => $category]);
     }
 
-    // App\Http\Controllers\ArticleController.php
     public function store(Request $request)
     {
         // Validazione dei dati

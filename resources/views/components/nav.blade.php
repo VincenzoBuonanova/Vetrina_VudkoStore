@@ -101,6 +101,31 @@
                                 <i class="fas fa-heart fa-xl text-danger"></i>
                             </a>
                         </li>
+
+                        {{--! inizio sezione revisore --}}
+                        @if (Auth::user()->is_revisor == 1)
+                        <div class="dropdown ms-3">
+                            <a data-bs-toggle="dropdown" class="text-warning dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                                @if (\App\Models\Product::toBeRevisedCount() > 0)
+                                <i class="fas fa-bell fa-xl"></i>
+                                <span class="badge rounded-pill badge-notification bg-or">
+                                    {{ \App\Models\Product::toBeRevisedCount() }}
+                                </span>
+                                @else
+                                <i class="fas fa-bell fa-xl text-gr"></i>
+                                @endif
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end bg-gr" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item text-bl" href="{{ route('revisorIndex') }}">
+                                        {{ __('ui.productRevision') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        @endif
+                        {{--! fine sezione revisore --}}
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user fa-xl text-white ms-3"></i>
@@ -108,7 +133,11 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li class="dropdown-item">Ciao, {{ Auth::user()->name }}</li>
                                 <li><a class="dropdown-item" href="{{ route('createArticle') }}">Pubblica un prodotto</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                @if (Auth::user()->is_revisor)
+                                <li><a class="dropdown-item" href="{{ route('revisorIndex') }}">Area Revisore</a></li>
+                                @else
+                                <li><a class="dropdown-item" href="{{ route('becomeRevisor') }}">Diventa Revisore</a></li>
+                                @endif
                                 <li><hr class="dropdown-divider"></li>
                                 <li><form action="{{ route('logout') }}" method="POST" class="text-center dropdown-item">
                                     @csrf

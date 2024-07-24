@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\RevisorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'home'])->name('home');
@@ -10,14 +11,19 @@ Route::get('/article/show/{article}', [ArticleController::class, 'show'])->name(
 Route::get('/category/{category}', [ArticleController::class, 'byCategory'])->name('byCategory');
 
 
+Route::middleware(['isRevisor'])->group(function () {
+    Route::get('revisor/index', [RevisorController::class, 'index'])->name('revisorIndex');
+    Route::patch('/accept/{article}', [RevisorController::class, 'accept'])->name('accept');
+    Route::patch('/reject/{article}', [RevisorController::class, 'reject'])->name('reject');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('articolo/crea', [ArticleController::class, 'create'])->name('createArticle');
+    Route::get('/revisor/request', [RevisorController::class, 'becomeRevisor'])->name('becomeRevisor');
+    Route::get('/make/revisor/{user}', [RevisorController::class, 'makeRevisor'])->name('makeRevisor');
 
-    // Route::get('/product/index', [ProductController::class, 'index'])->name('productIndex');
-    // Route::get('/product/show/{product}', [ProductController::class, 'show'])->name('productShow');
-    // Route::get('/product/category/{category}', [ProductController::class, 'prodByCategory'])->name('byCategory');
-    // Route::get('/product/show/{product}', [ProductController::class, 'show'])->name('productShow');
+
     // Route::get('/product/user/{user}', [ProductController::class, 'prodByUser'])->name('byUser');
     // Route::post('/contact/submit', [PublicController::class, 'submitContact'])->name('submitContact');
     // Route::get('/contact', [PublicController::class, 'contact'])->name('contact');

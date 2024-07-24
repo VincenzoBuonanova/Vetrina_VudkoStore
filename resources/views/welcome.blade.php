@@ -3,15 +3,15 @@
     {{--! inizio sezione alert --}}
     <div class="container">
         <div class="row">
-            @if (session('revisorError'))
+            @if (session('nonAutorizzato'))
             <div id="success-alert" id="success-alert" class="alert alert-danger fw-normal fst-italic">
-                {{ session('revisorError') }}
+                {{ session('nonAutorizzato') }}
             </div>
             @endif
 
-            @if (session('richiestaRevisore'))
+            @if (session('revisorRequest'))
             <div id="success-alert" class="alert alert-success fw-normal fst-italic">
-                {{ session('richiestaRevisore') }}
+                {{ session('revisorRequest') }}
             </div>
             @endif
 

@@ -23,7 +23,6 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
-
     public function getDet()
     {
         if (strlen($this->body) > 50) {
@@ -31,5 +30,17 @@ class Article extends Model
         } else {
             return $this->body;
         }
+    }
+
+    public function setAccepted($value)
+    {
+        $this->is_accepted = $value;
+        $this->save();
+        return true;
+    }
+
+    public static function toBeRevisitedCount()
+    {
+        return Article::where('is_accepted', false)->count();
     }
 }
