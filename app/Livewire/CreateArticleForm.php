@@ -5,10 +5,11 @@ namespace App\Livewire;
 use App\Models\Article;
 use Livewire\Component;
 use App\Models\Category;
+use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
-use Livewire\WithFileUploads;
 
 class CreateArticleForm extends Component
 {
@@ -36,6 +37,8 @@ class CreateArticleForm extends Component
     #[Validate("required", message: "Scegli almeno una categoria")]
     public $category;
     public $article;
+    public $temporary_images = [];
+    public $images = [];
 
     public function store()
     {
@@ -48,9 +51,19 @@ class CreateArticleForm extends Component
             'category_id' => $this->category,
             'user_id' => Auth::id(),
         ]);
-        $this->cleanForm();
+
+        if (!empty($this->images)) {
+            foreach ($this->images as $image) {
+                $path = $image->store('images', 'public');
+                $this->article->images()->create(['path' => $path]);
+            }
+            File::deleteDirectory(storage_path('app/livewire-tmp'));
+        }
+
         Session::flash('prodottoCaricato', 'Prodotto caricato con successo, in attesa di approvazione');
+        $this->cleanForm();
     }
+
 
     public function render()
     {
@@ -60,6 +73,25 @@ class CreateArticleForm extends Component
 
     protected function cleanForm()
     {
-        $this->reset(['brand', 'modello', 'price', 'body', 'category']);
+        $this->reset(['brand', 'modello', 'price', 'body', 'category', 'images', 'temporary_images']);
+    }
+
+    public function updatedTemporaryImages()
+    {
+        $this->validate([
+            'temporary_images.*' => 'image|max:2048',
+            'temporary_images' => 'max:6',
+        ]);
+
+        foreach ($this->temporary_images as $image) {
+            $this->images[] = $image;
+        }
+    }
+
+    public function removeImage($key)
+    {
+        if (in_array($key, array_keys($this->images))) {
+            unset($this->images[$key]);
+        }
     }
 }

@@ -2,7 +2,7 @@
     <div class="card-sl d-flex flex-column h-100">
         <div class="card-image card-image-prod position-relative">
             <div class="card-image card-image-prod position-relative ratio ratio-1x1">
-                <img src="https://picsum.photos/300/300"
+                <img src="{{ $article->images->isNotEmpty() ? Storage::url($article->images->first()->path) : 'https://picsum.photos/1000/1000' }}"
                 alt="Immagine prodotto {{ $article->title }}" class="w-100 imgCard" height="300px" />
             </div>
 
