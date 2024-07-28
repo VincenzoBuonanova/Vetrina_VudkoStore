@@ -50,4 +50,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class);
     }
+
+    public function favoriteArticles()
+    {
+        return $this->belongsToMany(Article::class, 'favorite_articles')->withTimestamps();
+    }
+
+    public function addFavorite(Article $article)
+    {
+        $this->favoriteArticles()->attach($article->id);
+    }
+
+    public function removeFavorite(Article $article)
+    {
+        $this->favoriteArticles()->detach($article->id);
+    }
+
+    public function hasFavorite(Article $article)
+    {
+        return $this->favoriteArticles()->where('article_id', $article->id)->exists();
+    }
 }

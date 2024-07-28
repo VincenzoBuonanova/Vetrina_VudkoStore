@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RevisorController;
+// use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'home'])->name('home');
@@ -10,16 +11,7 @@ Route::get('/article/index', [ArticleController::class, 'index'])->name('article
 Route::get('/article/show/{article}', [ArticleController::class, 'show'])->name('articleShow');
 Route::get('/category/{category}', [ArticleController::class, 'byCategory'])->name('byCategory');
 Route::get('/search/article', [PublicController::class, 'searchArticle'])->name('articleSearch');
-
-
-//! solo per revisori
-Route::middleware(['isRevisor'])->group(function () {
-    Route::get('revisor/index', [RevisorController::class, 'index'])->name('revisorIndex');
-    Route::patch('/accept/{article}', [RevisorController::class, 'accept'])->name('accept');
-    Route::patch('/reject/{article}', [RevisorController::class, 'reject'])->name('reject');
-    Route::post('/revisor/undo', [RevisorController::class, 'undoAction'])->name('revisorUndo');
-});
-
+Route::get('/user/{user}', [ArticleController::class, 'byUser'])->name('byUser');
 
 //! solo per loggati
 Route::middleware(['auth'])->group(function () {
@@ -27,13 +19,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/revisor/request', [RevisorController::class, 'becomeRevisor'])->name('becomeRevisor');
     Route::get('/make/revisor/{user}', [RevisorController::class, 'makeRevisor'])->name('makeRevisor');
 
+    Route::post('/article/favorite/{id}', [ArticleController::class, 'addFavorite'])->name('addFavorite');
+    Route::delete('/article/unfavorite/{id}', [ArticleController::class, 'removeFavorite'])->name('removeFavorite');
+    Route::get('/article/favorites', [ArticleController::class, 'favorites'])->name('favorites');
+    Route::delete('/article/delete/{id}', [ArticleController::class, 'deleteArticle'])->name('deleteArticle');
+});
 
-    // Route::get('/product/user/{user}', [ProductController::class, 'prodByUser'])->name('byUser');
-    // Route::post('/contact/submit', [PublicController::class, 'submitContact'])->name('submitContact');
-    // Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
-    // Route::get('/search/product', [PublicController::class, 'searchProducts'])->name('searchProduct');
-    // Route::post('/product/favorite/{id}', [ProductController::class, 'addFavorite'])->name('addFavorite');
-    // Route::delete('/product/unfavorite/{id}', [ProductController::class, 'removeFavorite'])->name('removeFavorite');
-    // Route::get('/product/favorites', [ProductController::class, 'favorites'])->name('productFavorites');
-    // Route::delete('/product/delete/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+//! solo per revisori
+Route::middleware(['isRevisor'])->group(function () {
+    Route::get('revisor/index', [RevisorController::class, 'index'])->name('revisorIndex');
+    Route::patch('/accept/{article}', [RevisorController::class, 'accept'])->name('accept');
+    Route::patch('/reject/{article}', [RevisorController::class, 'reject'])->name('reject');
+    Route::post('/revisor/undo', [RevisorController::class, 'undoAction'])->name('revisorUndo');
 });

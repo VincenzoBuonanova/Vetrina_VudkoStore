@@ -70,7 +70,7 @@
             {{--! inizio card articolo --}}
             <div class="col-12 col-lg-7 ps-lg-5 d-flex align-items-center justify-content-center text-center">
                 <div class="">
-                    <h5 class="card-title py-4">{{ $article->title }}</h5>
+                    <h5 class="card-title py-4">{{ $article->brand }}: {{ $article->modello }}</h5>
                     <p class="card-text">€ {{ $article->price }}</p>
                     <p class="card-text">{{ $article->body }}</p>
                     <p class="card-text fst-italic">Categoria:
@@ -84,20 +84,20 @@
                     </p>
 
                     <p class="card-text fst-italic">Caricato da:
-                        <a href="#">{{ $article->user->name }}</a>
+                        <a href="{{ route ('byUser', ['user' => $article->user])}}">{{ $article->user->name }}</a>
                     </p>
 
                     <a href="{{ route('articleIndex') }}">
                         <button class="btn btn-or">Torna agli articoli</button>
                     </a>
 
-                    {{-- @if (Auth::user() && (Auth::user()->id == $article->user_id || Auth::user()->is_revisor == 1))
-                    <form action="{{ route('deletearticle', $article->id) }}" method="POST" style="display: inline;">
+                    @if (Auth::user() && (Auth::user()->id == $article->user_id || Auth::user()->is_revisor == 1))
+                    <form action="{{ route('deleteArticle', $article->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger ms-3"><i class="fa-regular fa-trash-can fa-lg"></i></button>
                     </form>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
             {{--! fine card articolo --}}

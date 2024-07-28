@@ -3,25 +3,12 @@
         <div class="card-image card-image-prod position-relative">
             <div class="card-image card-image-prod position-relative ratio ratio-1x1">
                 <img src="{{ $article->images->isNotEmpty() ? Storage::url($article->images->first()->path) : 'https://picsum.photos/1000/1000' }}"
-                alt="Immagine prodotto {{ $article->title }}" class="w-100 imgCard" height="300px" />
+                alt="Immagine prodotto {{ $article->title }}" class="w-100 imgCard" />
             </div>
-
-            {{-- @if (Auth::check())
+            @if (Auth::check())
             @php
             $user = Auth::user();
             @endphp
-
-            @if ($user->hasFavorite($article))
-            <div id="favorite-section" class="card-action card-action-prod position-absolute top-0 end-0 m-2">
-                <form action="{{ route('removeFavorite', $article->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" style="background:none; border:none; padding:0;">
-                        <i class="fas fa-heart fa-lg text-danger"></i>
-                    </button>
-                </form>
-            </div>
-            @else
             <div id="favorite-section" class="card-action card-action-prod position-absolute top-0 end-0 m-2">
                 <form action="{{ route('addFavorite', $article->id) }}" method="POST" style="display:inline;">
                     @csrf
@@ -31,16 +18,15 @@
                 </form>
             </div>
             @endif
-            @endif --}}
         </div>
 
-        <div class="flex-grow-1 d-flex flex-column">
+        <div class="d-flex flex-column flex-grow-1">
             <div class="card-heading card-heading-prod pb-0">
-                <p class="titleCard">{{ $article->title }}</p>
+                <p class="titleCard">{{ $article->brand }}: {{ $article->modello }}</p>
             </div>
 
-            <div class="card-text card-text-prod pt-0">
-                <p class="display-6 priceCard mb-0">€ {{ $article->price }}</p>
+            <div class="card-text card-text-prod pt-0 flex-grow-1">
+                <p class="display-6 mb-0 text-center">€ {{ $article->price }}</p>
             </div>
 
             <div class="card-text card-text-prod">
@@ -60,16 +46,16 @@
 
             @if ($article->user)
             <div class="card-text card-text-prod fst-italic">
-                Creato da: {{ $article->user->name }}
-                {{-- <a href="{{ route('byUser', $article->user) }}">{{ $article->user->name }}</a> --}}
+                Creato da: <a href="{{ route('byUser', $article->user) }}">{{ $article->user->name }}</a>
             </div>
             @endif
 
-            <div class="mt-auto">
-                <a href="{{ route('articleShow', $article) }}" class="card-button card-button-prod">
+            <div>
+                <a href="{{ route('articleShow', $article) }}" class="card-button card-button-prod mt-auto">
                     Dettagli
                 </a>
             </div>
         </div>
     </div>
+
 </div>

@@ -73,28 +73,28 @@
                         {{-- !fine sezione accedi registrati --}}
                         @else
                         {{-- !inizio sezione autenticato --}}
-                        {{-- <a class="text-gr" href="{{ route('productFavorites') }}">
+                        <a class="text-gr" href="{{ route('favorites') }}">
                             @php
                             $user = Auth::user();
-                            $favoriteProductsCount = $user ? $user->favoriteProducts()->count() : 0;
+                            $favoriteArticlesCount = $user ? $user->favoriteArticles()->count() : 0;
                             @endphp
-                            @if ($favoriteProductsCount > 0)
+                            @if ($favoriteArticlesCount > 0)
                             <i class="fas fa-heart fa-xl text-danger"></i>
                             <span class="badge rounded-pill badge-notification bg-or">
-                                {{ $favoriteProductsCount }}
+                                {{ $favoriteArticlesCount }}
                             </span>
                             @else
                             <i class="fas fa-heart fa-xl text-gr"></i>
                             <span class="badge rounded-pill badge-notification bg-or">
-                                {{ $favoriteProductsCount }}
+                                {{ $favoriteArticlesCount }}
                             </span>
                             @endif
-                        </a> --}}
-                        <li class="nav-item">
+                        </a>
+                        {{-- <li class="nav-item">
                             <a class="nav-link fw-semibold text-gr" href="{{ route('home') }}">
                                 <i class="fas fa-heart fa-xl text-danger"></i>
                             </a>
-                        </li>
+                        </li> --}}
 
                         {{--! inizio sezione revisore --}}
                         @if (Auth::user()->is_revisor == 1)

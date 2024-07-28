@@ -64,4 +64,9 @@ class Article extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    public function favoritedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorite_articles')->withTimestamps();
+    }
 }
